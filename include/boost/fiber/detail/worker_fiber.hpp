@@ -150,24 +150,28 @@ public:
     void set_terminated() BOOST_NOEXCEPT
     {
         state_t previous = state_.exchange( TERMINATED);
+        (void)previous;
         BOOST_ASSERT( RUNNING == previous);
     }
 
     void set_ready() BOOST_NOEXCEPT
     {
         state_t previous = state_.exchange( READY);
+        (void)previous;
         BOOST_ASSERT( WAITING == previous || RUNNING == previous || READY == previous);
     }
 
     void set_running() BOOST_NOEXCEPT
     {
         state_t previous = state_.exchange( RUNNING);
+        (void)previous;
         BOOST_ASSERT( READY == previous);
     }
 
     void set_waiting() BOOST_NOEXCEPT
     {
         state_t previous = state_.exchange( WAITING);
+        (void)previous;
         BOOST_ASSERT( RUNNING == previous);
     }
 
