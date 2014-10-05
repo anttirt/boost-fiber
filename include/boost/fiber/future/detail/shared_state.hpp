@@ -55,7 +55,11 @@ private:
         //TODO: set broken_exception if future was not already done
         //      notify all waiters
         if ( ! ready_)
+#if defined(BOOST_USE_STDEXCEPT)
+            set_exception_( ::std::make_exception_ptr( broken_promise() ) );
+#else
             set_exception_( boost::copy_exception( broken_promise() ) );
+#endif
     }
 
     void set_value_( R const& value)
@@ -294,7 +298,11 @@ private:
         //TODO: set broken_exception if future was not already done
         //      notify all waiters
         if ( ! ready_)
+#if defined(BOOST_USE_STDEXCEPT)
+            set_exception_( ::std::make_exception_ptr( broken_promise() ) );
+#else
             set_exception_( boost::copy_exception( broken_promise() ) );
+#endif
     }
 
     void set_value_( R & value)
@@ -484,7 +492,11 @@ private:
         //TODO: set broken_exception if future was not already done
         //      notify all waiters
         if ( ! ready_)
+#if defined(BOOST_USE_STDEXCEPT)
+            set_exception_( ::std::make_exception_ptr( broken_promise() ) );
+#else
             set_exception_( boost::copy_exception( broken_promise() ) );
+#endif
     }
 
     void set_value_()

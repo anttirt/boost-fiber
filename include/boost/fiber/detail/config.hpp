@@ -43,12 +43,24 @@
 # define BOOST_FIBERS_SEGMENTS 10
 #endif
 
+#if defined(BOOST_USE_STDEXCEPT)
+# include <exception>
+#else
+# include <boost/exception_ptr.hpp>
+#endif
+
 namespace boost {
 namespace fibers {
 #if defined(BOOST_HAS_CLOCK_STEADY)
  typedef boost::chrono::steady_clock   clock_type;
 #else
  typedef boost::chrono::system_clock   clock_type;
+#endif
+
+#if defined(BOOST_USE_STDEXCEPT)
+ typedef ::std::exception_ptr exception_ptr;
+ using ::std::current_exception;
+ using ::std::rethrow_exception;
 #endif
 }}
 
