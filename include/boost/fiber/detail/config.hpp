@@ -10,6 +10,12 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
+#if defined(BOOST_USE_STDEXCEPT)
+# include <exception>
+#else
+# include <boost/exception_ptr.hpp>
+#endif
+
 #ifdef BOOST_FIBERS_DECL
 # undef BOOST_FIBERS_DECL
 #endif
@@ -51,5 +57,14 @@
     ! defined(BOOST_NO_CXX11_HDR_TUPLE)
 # define BOOST_FIBERS_USE_VARIADIC_FIBER
 #endif
+
+namespace boost {
+namespace fibers {
+#if defined(BOOST_USE_STDEXCEPT)
+ typedef ::std::exception_ptr exception_ptr;
+ using ::std::current_exception;
+ using ::std::rethrow_exception;
+#endif
+}}
 
 #endif // BOOST_FIBERS_DETAIL_CONFIG_H

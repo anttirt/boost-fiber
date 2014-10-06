@@ -9,6 +9,9 @@ import feature ;
 import modules ;
 import toolset ;
 
+feature.feature stdexcept : on : optional propagated composite ;
+feature.compose <stdexcept>on : <define>BOOST_USE_STDEXCEPT ;
+
 project boost/fiber
     : requirements
       <target-os>freebsd:<linkflags>"-lrt"
